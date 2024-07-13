@@ -1,14 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\QuotationController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-
-
-Route::get('/quotation', function () {
-    return Inertia::render('Welcome');
-})->name('quotation');
+Route::get('/quotation', [QuotationController::class, 'index'])->name('quotation');
 
 require __DIR__.'/auth.php';
