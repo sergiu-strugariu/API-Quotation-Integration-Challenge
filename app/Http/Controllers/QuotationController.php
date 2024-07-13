@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\QuotationRequest;
 use App\Providers\QuotationService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -25,6 +26,16 @@ class QuotationController extends Controller
     public function getQuotation(QuotationRequest $request): JsonResponse
     {
         try {
+            $user = Auth::guard('api')->user();
+
+            if (!$user) {
+                return response()->json(['error' => 'Unauthorized. You are not logged in.'], 401);
+            }
+
+            if (!$user->api_token) {
+                return response()->json(['error' => 'Unauthorized. No token was found.'], 401);
+            }
+
             $ages = explode(',', $request->input('age'));
             $currencyId = $request->input('currency_id');
             $startDate = $request->input('start_date');

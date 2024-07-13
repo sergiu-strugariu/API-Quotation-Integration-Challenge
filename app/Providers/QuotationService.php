@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class QuotationService extends ServiceProvider
@@ -37,7 +38,7 @@ class QuotationService extends ServiceProvider
         return [
             'total' => round($total),
             'currency_id' => $currencyId,
-            'quotation_id' => rand(1, 1000)
+            'quotation_id' => rand(1, 1000),
         ];
     }
 
